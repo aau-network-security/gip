@@ -1,0 +1,29 @@
+
+syntax = "proto3";
+
+// Names of the service may change over time.
+
+service IPTables {
+    rpc CreateAcceptRule(AcceptRequest) returns (AcceptReply) {}
+    rpc CreateAcceptWithState(AcceptRequest) returns (AcceptReply) {}
+    rpc DropForward(FlushRequest) returns (Respond) {}
+}
+
+
+message FlushRequest {
+    string chain =1;
+}
+message Respond {
+
+}
+
+message AcceptRequest {
+    string input = 1;
+    string output =2;
+}
+
+
+
+message AcceptReply {
+
+}
