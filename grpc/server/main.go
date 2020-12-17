@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 	"strconv"
 
 	"github.com/mrturkmencom/gip/config"
@@ -12,11 +13,15 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
+var (
+	CONFIG_FILE = os.Getenv("CONFIG_FILE")
+)
+
 func main() {
-	if err := config.ValidateConfigPath("/app/config.yml"); err != nil {
+	if err := config.ValidateConfigPath(CONFIG_FILE); err != nil {
 		panic(err)
 	}
-	conf, err := config.NewConfig("/app/config.yml")
+	conf, err := config.NewConfig(CONFIG_FILE)
 	if err != nil {
 		panic(err)
 	}
@@ -36,7 +41,7 @@ func main() {
 	reflection.Register(gRPCEndpoint)
 	pb.RegisterIPTablesServer(gRPCEndpoint, ipTService)
 
-	fmt.Printf("DockerService gRPC server is running at port %s...\n", gRPCPort)
+	fmt.Printf("gip: gRPC service is running at port %s...\n", gRPCPort)
 	if err := gRPCEndpoint.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
 	}
