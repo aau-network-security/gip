@@ -1,4 +1,7 @@
 # .goreleaser.yml
+before:
+  hooks:
+    - go mod tidy
 builds:
   - id: "gip"
     main: ./grpc/server/main.go
