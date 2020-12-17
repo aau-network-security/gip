@@ -60,7 +60,7 @@ archives:
     # `README*` and `CHANGELOG*` (case-insensitive).
     files:
       - config/config.yml
-      - readme.md
+      - README.md
 
 checksum:
   # You can change the name of the checksums file.
